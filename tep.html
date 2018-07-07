@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Complex Polylines</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+
+      // This example creates an interactive map which constructs a polyline based on
+      // user clicks. Note that the polyline only appears once its path property
+      // contains two LatLng coordinates.
+
+      var poly;
+      var map;
+
+      var styleMap = 
+ 
+ [   {
+        "featureType": "administrative",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    }, {
+        "featureType": "administrative.country",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "on"
+            }
+        ]
+    }, 
+    {
+        "featureType": "administrative.country",
+        "elementType": "geometry.stroke",
+        "stylers": [
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative.province",
+        "elementType": "geometry.stroke",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "visibility": "on"
+            },
+            {
+                "color": "#e3e3e3"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape.natural",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "all",
+        "stylers": [
+            {
+                "color": "#cccccc"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "transit",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "transit.line",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "transit.line",
+        "elementType": "labels.text",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "transit.station.airport",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "transit.station.airport",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#FFFFFF"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    }
+];
+
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: new google.maps.LatLng(30,0),
+          zoom: 2,
+          mapTypeId: google.maps.MapTypeId.ROADMAP, 
+          styles: styleMap
+        });
+
+        poly = new google.maps.Polyline({
+          strokeColor: '#000000',
+          strokeOpacity: 1.0,
+          strokeWeight: 3
+        });
+        poly.setMap(map);
+
+        var world_geometry = new google.maps.FusionTablesLayer({
+          query: {
+            select: 'geometry',
+            from: '1N2LBk4JHwWpOY4d9fobIn27lfnZ5MDy-NoqqRpk',  
+            where: "ISO_2DIGIT IN ( 'GB', 'DE')"
+          },
+          styles: [{
+            polygonOptions: {
+              fillColor: '#123454',
+              fillOpacity: 0.3
+            }}],
+          map: map,
+          suppressInfoWindows: true
+        });
+
+        var world_geometry = new google.maps.FusionTablesLayer({
+          query: {
+            select: 'geometry',
+            from: '1N2LBk4JHwWpOY4d9fobIn27lfnZ5MDy-NoqqRpk',  
+            where: "ISO_2DIGIT IN ('US' )"
+          },
+          map: map,
+          suppressInfoWindows: true
+        });
+ 
+      } 
+
+
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCofJyvRybO8gSg6g6g8JZnCqoWO5LMmU8&callback=initMap">
+    </script>
+  </body>
+</html>
